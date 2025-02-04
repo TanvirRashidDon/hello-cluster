@@ -1,15 +1,18 @@
+version: "3.9"
+
 services:
   load-balancer:
     build:
-      context:
+      context: .
       dockerfile: Nginx.Dockerfile
     ports:
       - "80:80"
     depends_on:
-      - hello-server1
-      - hello-server2
-    networks:
-      - hello-network
+      - hello-server-1
+      - hello-server-2
 
-  hello-server1:
-    
+  hello-server-1:
+    build: .
+
+  hello-server-2:
+    build: .

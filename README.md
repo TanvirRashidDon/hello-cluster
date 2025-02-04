@@ -1,22 +1,28 @@
-# API only
-## Local RUN
+# What to expect?
+1. Test the server as a linux service
+2. Test load balancing with containerization
+3. Test with docker compose
+
+
+## API only
+### Local RUN
 `sudo go run ./src/server.go`
 
-### TEST
+#### TEST
 `curl http://localhost/api`
 
 
-## Docker RUN
+### Docker RUN
 `docker build -t hello-server .``
 `docker run -d -p 80:80 hello-server`
 
 
-# Load Balancing
+## Load Balancing
 
-## First thing first. Create a network. Cause docker bridge network has no DNS
+### First thing first. Create a network. Cause docker bridge network has no DNS
 `docker network create -d bridge hello-network`
 
-## Run to instance of the application
+### Run to instance of the application
 `docker run --name hello-server-1 --network hello-network -d hello-server`
 // test server-1
 // `docker run --rm --network hello-network curlimages/curl curl http://hello-server-1/api`
@@ -25,11 +31,16 @@
 // `docker run --rm --network hello-network curlimages/curl curl http://hello-server-2/api`
 
 
-## Build nginx image for load balancing
+### Build nginx image for load balancing
 `docker build -f Nginx.Dockerfile -t hello-nginx .`
 
-## Run the load balancer
+### Run the load balancer
 `docker run --name hello-nginx --network hello-network -d -p 80:80 hello-nginx`
 
-## Test the load balancer
+### Test the load balancer
 `curl http://localhost/api`
+
+
+# Docker compose
+`docker compose up -d`
+`docker compose down`
