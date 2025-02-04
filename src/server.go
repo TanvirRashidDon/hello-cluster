@@ -60,7 +60,7 @@ func handler (writer http.ResponseWriter, request *http.Request) {
 
 func main() {
 	server := &http.Server{
-		Addr: ":8090",
+		Addr: ":80",
 		ReadTimeout: 10 * time.Second,
 		WriteTimeout: 10 * time.Second,
 		MaxHeaderBytes: 1 << 20, // 1 MB

@@ -1,29 +1,35 @@
 # API only
 ## Local RUN
-`go run ./src/server.go`
+`sudo go run ./src/server.go`
 
 ### TEST
-`curl http://localhost:8090/api`
+`curl http://localhost/api`
 
 
 ## Docker RUN
 `docker build -t hello-server .``
-`docker run -d -p 8090:8090 hello-server`
+`docker run -d -p 80:80 hello-server`
 
 
 # Load Balancing
-## Buiild application image
-`docker build -t hello-server .`
+
+## First thing first. Create a network. Cause docker bridge network has no DNS
+`docker network create -d bridge hello-network`
 
 ## Run to instance of the application
-`docker run -d -p 8090:8090 hello-server`
-`docker run -d -p 8090:8091 hello-server`
+`docker run --name hello-server-1 --network hello-network -d hello-server`
+// test server-1
+// `docker run --rm --network hello-network curlimages/curl curl http://hello-server-1/api`
+`docker run --name hello-server-2 --network hello-network -d hello-server`
+// test server-2
+// `docker run --rm --network hello-network curlimages/curl curl http://hello-server-2/api`
+
 
 ## Build nginx image for load balancing
 `docker build -f Nginx.Dockerfile -t hello-nginx .`
 
 ## Run the load balancer
-`docker run -d -p 8085:80 hello-nginx`
+`docker run --name hello-nginx --network hello-network -d -p 80:80 hello-nginx`
 
 ## Test the load balancer
-`curl http://192.168.1.179:8085/hello/api`
+`curl http://localhost/api`

@@ -1,0 +1,15 @@
+services:
+  load-balancer:
+    build:
+      context:
+      dockerfile: Nginx.Dockerfile
+    ports:
+      - "80:80"
+    depends_on:
+      - hello-server1
+      - hello-server2
+    networks:
+      - hello-network
+
+  hello-server1:
+    
