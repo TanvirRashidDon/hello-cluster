@@ -24,6 +24,6 @@ WORKDIR /root/
 
 COPY --from=builder /app/hello-server .
 
-EXPOSE 8090
+EXPOSE 80
 
 CMD ["./hello-server"]

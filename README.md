@@ -1,6 +1,6 @@
 # What to expect?
 1. Test the server as a linux service
-2. Test load balancing with containerization
+2. Test load balancing using nginx
 3. Test with docker compose
 
 
