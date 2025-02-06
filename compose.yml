@@ -1,10 +1,4 @@
 services:
-  builder:
-    build: .
-    image: hello-server:0.7
-    profiles:
-      - build # enable when "--profile build" is provided
-
   load-balancer:
     image: nginx:1.27.3
     ports:
@@ -15,6 +9,7 @@ services:
       - hello-server
 
   hello-server:
+    build: .
     image: hello-server:0.7
     deploy:
       replicas: 2

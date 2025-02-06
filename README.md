@@ -42,10 +42,7 @@
 
 
 # Docker compose
-// initial building
-`docker compose --profile build up -d`
 `docker compose up -d`
-
 // scale the server
 `docker compose up -d --scale hllo-server=3`
 `docker compose down`
