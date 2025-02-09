@@ -1,5 +1,5 @@
 services:
-  load-balancer:
+  reverse-proxy:
     image: nginx:1.27.3
     ports:
       - "80:80"

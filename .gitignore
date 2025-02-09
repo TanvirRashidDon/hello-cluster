@@ -1,0 +1,13 @@
+# Ignore Go build
+*.exe
+*.out
+*.sum
+/hello-server
+
+# Ignore log files
+*.log
+
+# Ignore environment and secrets
+.env
+secrets.yml
+
