@@ -1,0 +1,18 @@
+entryPoints:
+  web:
+    address: ":80"
+
+providers:
+  docker:
+    exposedByDefault: false
+  # use only if a single traefik instance maintaining multiple projects
+  # file:
+  #   fileName:  "./traefik/dynamic_conf.yml" # /etc/traefik/dynamic_conf.yml
+  #   watch: true
+
+api:
+  dashboard: true
+  insecure: true
+
+log:
+  level: INFO

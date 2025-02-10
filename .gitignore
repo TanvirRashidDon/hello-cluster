@@ -11,3 +11,7 @@
 .env
 secrets.yml
 
+# Ignore swap files
+*.swp
+*.swo
+*.swn
