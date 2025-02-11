@@ -13,8 +13,10 @@
 
 
 ### Docker RUN
-`docker build -t hello-server .`
-`docker run -d -p 80:80 hello-server`
+```
+docker build -t hello-server .
+docker run -d -p 80:80 hello-server
+```
 
 
 ## 2. Balance load using nginx
@@ -23,12 +25,14 @@
 `docker network create -d bridge hello-network`
 
 ### Run to instance of the application
-`docker run --name hello-server-1 --network hello-network -d hello-server`
+```
+docker run --name hello-server-1 --network hello-network -d hello-server
 // test server-1
-// `docker run --rm --network hello-network curlimages/curl curl http://hello-server-1/api`
-`docker run --name hello-server-2 --network hello-network -d hello-server`
+// docker run --rm --network hello-network curlimages/curl curl http://hello-server-1/api
+docker run --name hello-server-2 --network hello-network -d hello-server
 // test server-2
-// `docker run --rm --network hello-network curlimages/curl curl http://hello-server-2/api`
+// docker run --rm --network hello-network curlimages/curl curl http://hello-server-2/api
+```
 
 
 ### Build nginx image for load balancing
@@ -42,13 +46,17 @@
 
 
 ### using single compose file
-`docker compose up -d`
+```
+docker compose up -d
 // scale the server
-`docker compose up -d --scale hllo-server=3`
-`docker compose down`
+docker compose up -d --scale hllo-server=3
+docker compose down
+```
 
 
 ## 3. Balance load using traefik
-`docker compose -f traefik-compose.yml up -d`
-`docker compose -f traefik-compose.yml up -d --scale hello-server=3`
-`docker compose -f traefik-compose.yml down`
+```
+docker compose -f traefik-compose.yml up -d
+docker compose -f traefik-compose.yml up -d --scale hello-server=3
+docker compose -f traefik-compose.yml down
+```
