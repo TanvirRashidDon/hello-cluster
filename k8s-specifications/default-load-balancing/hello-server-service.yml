@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+
+metadata:
+  name: hello-server-service
+  labels:
+    app: hello-app
+
+spec:
+  # NodePort will do the same except for LoadBalancer 
+  # will initiate nativ loadbalancer implementation
+  # from infracture like gke, eks, aks
+  type: LoadBalancer
+  selector:
+    name: hello-server-pod
+    app: hello-app
+  ports:
+    - nodePort: 30080
+      port: 80
+      targetPort: 80
