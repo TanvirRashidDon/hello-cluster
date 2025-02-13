@@ -3,6 +3,7 @@
 2. Balance load using nginx (docker container)
 3. Balance load using traefik (docker compose)
 4. Use kubernetis default load balancing (random)
+5. Load balencing with nginx in kubernetis
 
 
 ## 1. Test the server as a linux service
@@ -76,7 +77,7 @@ docker compose -f traefik-compose.yml down
 ## 4. Use kubernetis default load balancing (random)
 #### Prerequists:
 1. Docker installed
-2. Kubernetis cluster installed
+2. Kubernetis cluster installed (minikube, microk8s)
 3. kubectl installed
 
 #### Make image available for kuberneties
@@ -99,3 +100,35 @@ kubectl get services
 
 ### Test
 `curl http://localhost:30080/api`
+
+
+## 5. Load balencing with nginx in kubernetis
+#### Prerequists:
+1. Docker installed
+2. Kubernetis cluster installed (minikube, microk8s)
+3. kubectl installed
+
+#### Make image available for kuberneties
+```
+docker build -t hello-server:0.7 .
+docker tag hello-server:0.7 localhost:5000/hello-server:l>
+
+docker run -d -p 5000:5000 --name=registry registry:2
+docker push localhost:5000/hello-server:latest
+```
+
+### create kuberneties objects
+```
+// make nginx config file accessable from the pod
+kubectl create configmap nginx-config --from-file=./nginx/nginx-k8s.conf
+
+kubectl apply -f k8s-specifications/nginx/hello-server-deploy.yml
+kubectl apply -f k8s-specifications/nginx/hello-server-service.yml
+kubectl apply -f k8s-specifications/nginx/nginx-deploy.yml
+kubectl apply -f k8s-specifications/nginx/nginx-service.yml
+
+```
+
+### Test
+`curl http://localhost:30080/api`
+
