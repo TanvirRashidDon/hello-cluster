@@ -12,6 +12,11 @@ spec:
     name: nginx-pod
     app: hello-app
   ports:
-    - nodePort: 30080
+    - name: http
+      nodePort: 30080
       port: 80
-      targetPort: 80
+      protocol: TCP
+    - name: https
+      nodePort: 30443
+      port: 443
+      protocol: TCP

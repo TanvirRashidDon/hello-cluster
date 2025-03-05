@@ -15,7 +15,6 @@ spec:
       app: hello-app
   template:
     metadata:
-      name: hello-server-pod
       labels:
         name: hello-server-pod
         app: hello-app
