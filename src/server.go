@@ -35,7 +35,7 @@ func resolveLocalIp() (string, error) {
 
 		addresses, err := iface.Addrs()
 		if err != nil {
-			return "", fmt.Errorf("error getting addresses for interface %s: %w", iface, err)
+			return "", fmt.Errorf("error getting addresses for interface %s: %w", iface.Name, err)
 		}
 
 		for _, address := range addresses {

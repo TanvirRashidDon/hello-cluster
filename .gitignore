@@ -2,7 +2,7 @@
 *.exe
 *.out
 *.sum
-/hello-server
+hello-server
 
 # Ignore log files
 *.log

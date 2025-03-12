@@ -1,16 +1,18 @@
 # What to expect?
-1. Test the server as a linux service
+1. Test the server as a linux service (shell)
 2. Balance load using nginx (docker container)
 3. Balance load using traefik (docker compose)
-4. Use kubernetis default load balancing (random)
-5. Reverse proxy with nginx in kubernetis
-6. Helm chart for nginx reverse proxy
+4. Use kubernetis default load balancing (kubectl)
+5. Reverse proxy with nginx in kubernetis (kubectl)
+6. Helm chart for nginx reverse proxy (helm)
 
 TODO:
 * Add frontend
 * Add DB
 * Add Istio service mesh
 * Shift to traefik ingress
+* ELK
+* Github action
 
 ## 1. Test the server as a linux service
 #### Prerequisites:
@@ -127,26 +129,4 @@ curl http://localhost:30080/api
 
 
 ## 6. Helm chart for nginx reverse proxy
-### Prerequisites:
-1. Helm installed
-2. Add TLS secret if not exist already
-```
-// generate self signed rsa key and certificate for TLS
-make keys KEY=/tmp/nginx.key CERT=/tmp/nginx.crt
-cat /tmp/nginx.key | base64 | tr -d '\n'
-cat /tmp/nginx.crt | base64 | tr -d '\n'
-// put these value in ./helm/nginx-rp/templates/nginx-secret.yml
-```
 
-```
-helm install sample ./helm/nginx-rp
-helm upgrade --set app.deploy.replicas=3 sample ./helm/nginx-rp/
-helm rollback sample 1
-helm unstall sample
-```
-
-### Test
-```
-curl -k https://localhost:30443/api
-curl http://localhost:30080/api
-```
