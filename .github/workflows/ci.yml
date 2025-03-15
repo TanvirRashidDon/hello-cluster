@@ -36,9 +36,9 @@ jobs:
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
-          passeord: ${{ secrets.DOCKER_HUB_TOKEN}}
+          password: ${{ secrets.DOCKER_HUB_TOKEN }}
 
-      - name: Build and push DOcker image
+      - name: Build and push Docker image
         uses: docker/build-push-action@v4
         with:
           context: .
