@@ -10,8 +10,6 @@ TODO:
 * Add frontend
 * Add DB
 * Add Istio service mesh
-* Shift to traefik ingress
-* Remove secret from #6
 
 ## 1. Test the server as a linux service
 #### Prerequisites:
@@ -130,16 +128,14 @@ curl http://localhost:30080/api
 ## 6. Helm chart for ingress with reverse proxy
 ### Prerequisites:
 1. Helm installed
-2. Add TLS secret if not exist already
+2. Enaable ingress
+`microk8s enable ingress`
+3. Add TLS secret if not exist already
 ```
 // generate self signed rsa key and certificate for TLS
-make keys KEY=/tmp/nginx.key CERT=/tmp/nginx.crt
-cat /tmp/tls.key | base64 | tr -d '\n'
-cat /tmp/tls.crt | base64 | tr -d '\n'
-// put these values in ./helm/nginx-rp/templates/tls-secret.yml
+make keys KEY=/tmp/tls.key CERT=/tmp/tls.crt
+kubectl create secret tls ingress-tls-secret --cert=/tmp/tls.crt --key=/tmp/tls.key
 ```
-3. Enaable ingress
-`microk8s enable ingress`
 
 ```
 helm install sample ./helm/nginx-rp
