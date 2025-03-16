@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+
+metadata:
+  name: {{ .Release.Name }}-{{ .Values.app.name }}-ingress
+  labels:
+    {{- include "common.labels" . | nindent 4 }}
+
+spec:
+  tls:
+    - hosts:
+      - localhost
+      secretName: {{ include "rp.secret.name" . }}
+  rules:
+    - host: localhost
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ include "app.service.name" . }}
+                port:
+                  number: {{ .Values.app.service.port }}

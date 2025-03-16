@@ -4,13 +4,14 @@
 3. Balance load using traefik (docker compose)
 4. Use kubernetis default load balancing (random)
 5. Reverse proxy with nginx in kubernetis
-6. Helm chart for nginx reverse proxy
+6. Helm chart for ingress with reverse proxy
 
 TODO:
 * Add frontend
 * Add DB
 * Add Istio service mesh
 * Shift to traefik ingress
+* Remove secret from #6
 
 ## 1. Test the server as a linux service
 #### Prerequisites:
@@ -126,17 +127,19 @@ curl http://localhost:30080/api
 ```
 
 
-## 6. Helm chart for nginx reverse proxy
+## 6. Helm chart for ingress with reverse proxy
 ### Prerequisites:
 1. Helm installed
 2. Add TLS secret if not exist already
 ```
 // generate self signed rsa key and certificate for TLS
 make keys KEY=/tmp/nginx.key CERT=/tmp/nginx.crt
-cat /tmp/nginx.key | base64 | tr -d '\n'
-cat /tmp/nginx.crt | base64 | tr -d '\n'
-// put these value in ./helm/nginx-rp/templates/nginx-secret.yml
+cat /tmp/tls.key | base64 | tr -d '\n'
+cat /tmp/tls.crt | base64 | tr -d '\n'
+// put these values in ./helm/nginx-rp/templates/tls-secret.yml
 ```
+3. Enaable ingress
+`microk8s enable ingress`
 
 ```
 helm install sample ./helm/nginx-rp
@@ -147,6 +150,5 @@ helm unstall sample
 
 ### Test
 ```
-curl -k https://localhost:30443/api
-curl http://localhost:30080/api
+curl -k https://localhost/api
 ```

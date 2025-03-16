@@ -1,0 +1,13 @@
+app:
+  name: hello-server
+  deploy:
+    replicas: 2
+    image:
+      repository: tanvirrashiddon/hello-server
+      tag: ""
+      pullPolicy: IfNotPresent
+  service:
+    type: LoadBalancer
+    port: 80
+    protocol: TCP
+    targetPort: 80
