@@ -21,4 +21,4 @@ spec:
     spec:
       containers:
         - name: hello-server-container
-          image: localhost:5000/hello-server:latest
+          image: tanvirrashiddon/hello-server:latest

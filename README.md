@@ -1,3 +1,5 @@
+Docker image of this project can be found [here](https://hub.docker.com/r/tanvirrashiddon/hello-server). The image actively maintained by github action of this project.
+
 # What to expect?
 1. Test the server as a linux service
 2. Balance load using nginx (docker container)
@@ -40,10 +42,10 @@ docker run -d -p 80:80 hello-server
 
 ### Run to instance of the application
 ```
-docker run --name hello-server-1 --network hello-network -d hello-server
+docker run --name hello-server-1 --network hello-network -d tanvirrashiddon/hello-server
 // test server-1
 // docker run --rm --network hello-network curlimages/curl curl http://hello-server-1/api
-docker run --name hello-server-2 --network hello-network -d hello-server
+docker run --name hello-server-2 --network hello-network -d tanvirrashiddon/hello-server
 // test server-2
 // docker run --rm --network hello-network curlimages/curl curl http://hello-server-2/api
 ```
@@ -83,14 +85,6 @@ docker compose -f traefik-compose.yml down
 1. Docker installed
 2. Kubernetis cluster installed (minikube, microk8s)
 3. kubectl installed
-4. And make image available for kuberneties
-```
-docker build -t hello-server:0.7 .
-docker tag hello-server:0.7 localhost:5000/hello-server:l>
-
-docker run -d -p 5000:5000 --name=registry registry:2
-docker push localhost:5000/hello-server:latest
-```
 
 
 ## 4. Use kubernetis default load balancing (random)
@@ -138,8 +132,8 @@ kubectl create secret tls ingress-tls-secret --cert=/tmp/tls.crt --key=/tmp/tls.
 ```
 
 ```
-helm install sample ./helm/nginx-rp
-helm upgrade --set app.deploy.replicas=3 sample ./helm/nginx-rp/
+helm install sample ./helm/ingress-rp
+helm upgrade --set app.deploy.replicas=3 sample ./helm/ingress-rp/
 helm rollback sample 1
 helm unstall sample
 ```

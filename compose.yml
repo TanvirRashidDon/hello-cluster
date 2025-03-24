@@ -12,7 +12,7 @@ services:
 
   hello-server:
     build: .
-    image: hello-server:0.7
+    image: tanvirrashiddon/hello-server:latest
     restart: always
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:80/api"]

@@ -17,7 +17,7 @@ services:
 
   hello-server:
     build: .
-    image: hello-server:0.7
+    image: tanvirrashiddon/hello-server:latest
     restart: always
     deploy:
       replicas: 2
