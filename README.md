@@ -7,6 +7,7 @@ Docker image of this project can be found [here](https://hub.docker.com/r/tanvir
 4. Use kubernetis default load balancing (random)
 5. Reverse proxy with nginx in kubernetis
 6. Helm chart for ingress with reverse proxy
+7. Deploy as docker container using terraform
 
 TODO:
 * Add frontend
@@ -141,4 +142,15 @@ helm unstall sample
 ### Test
 ```
 curl -k https://localhost/api
+```
+
+
+## 7. Deploy as docker container using terraform
+### Prerequisites:
+1. Terraform installed
+
+```
+cd ./terraform/docker-lb/project-hello-app
+terraform workspace new local
+terraform apply
 ```

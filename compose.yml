@@ -11,7 +11,7 @@ services:
         condition: service_started
 
   hello-server:
-    build: .
+    # build: . uncomment if image rebuild needed
     image: tanvirrashiddon/hello-server:latest
     restart: always
     healthcheck:

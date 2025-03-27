@@ -15,3 +15,10 @@ secrets.yml
 *.swp
 *.swo
 *.swn
+
+# Terraform
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+*.tfvarse
+*.tfvarse.json
