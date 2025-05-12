@@ -7,10 +7,13 @@ locals {
   })
 }
 
+# store the config file in tfstate file.
+# incase nginx configuration changes, terraform will detect via tfstate and plan accordingly
 resource "terraform_data" "nginx_config" {
   input = local.nginx_config_content
 }
 
+# TODO: this block wouldn't needed if "docker_container.volumes" resource support virtual file. (don 8-4-2025
 resource "local_file" "nginx_config_file" {
   content  = terraform_data.nginx_config.input
   filename = var.nginx_config_tmp_file_name

@@ -1,13 +1,13 @@
 Docker image of this project can be found [here](https://hub.docker.com/r/tanvirrashiddon/hello-server). The image actively maintained by github action of this project.
 
 # What to expect?
-1. Test the server as a linux service
-2. Balance load using nginx (docker container)
-3. Balance load using traefik (docker compose)
-4. Use kubernetis default load balancing (random)
-5. Reverse proxy with nginx in kubernetis
-6. Helm chart for ingress with reverse proxy
-7. Deploy as docker container using terraform
+- [1. Test the server as a linux service](#1-test-the-server-as-a-linux-service)
+- [2. Balance load using nginx (docker container)](#2-balance-load-using-nginx)
+- [3. Balance load using traefik (docker compose)](#3-balance-load-using-traefik-docker-compose)
+- [4. Use kubernetis default load balancing (random)](#4-use-kubernetis-default-load-balancing-random)
+- [5. Reverse proxy with nginx in kubernetis (kubectl)](#5-reverse-proxy-with-nginx-in-kubernetis)
+- [6. Helm chart for ingress with reverse proxy](#6-helm-chart-for-ingress-with-reverse-proxy)
+- [7. Deploy as docker container using terraform](#7-deploy-as-docker-container-using-terraform)
 
 TODO:
 * Add frontend
@@ -153,4 +153,9 @@ curl -k https://localhost/api
 cd ./terraform/docker-lb/project-hello-app
 terraform workspace new local
 terraform apply
+```
+
+### Test
+```
+curl http://localhost:8080/api
 ```

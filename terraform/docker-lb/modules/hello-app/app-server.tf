@@ -24,6 +24,7 @@ resource "docker_container" "hello_server" {
     name = docker_network.app_network.name
   }
 
+# TODO: fix healthcheck. (don, 8-4-2025)
   # healthcheck {
   #   test     = ["CMD", "curl", "-f", "http://localhost:${var.app_port}/api"]
   #   interval = "10s"

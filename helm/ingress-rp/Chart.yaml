@@ -1,5 +1,5 @@
 apiVersion: v2
-name: traefik-rp
+name: ingress-rp
 description: A Helm chart to deploy app behind ingress rp
 
 type: application
