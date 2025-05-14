@@ -8,6 +8,7 @@ Docker image of this project can be found [here](https://hub.docker.com/r/tanvir
 - [5. Reverse proxy with nginx in kubernetis (kubectl)](#5-reverse-proxy-with-nginx-in-kubernetis)
 - [6. Helm chart for ingress with reverse proxy](#6-helm-chart-for-ingress-with-reverse-proxy)
 - [7. Deploy as docker container using terraform](#7-deploy-as-docker-container-using-terraform)
+- [8. AWS deployment using terraform](#8-aws-deployment-using-terraform)
 
 TODO:
 * Add frontend
@@ -151,6 +152,7 @@ curl -k https://localhost/api
 
 ```
 cd ./terraform/docker-lb/project-hello-app
+terraform init
 terraform workspace new local
 terraform apply
 ```
@@ -158,4 +160,21 @@ terraform apply
 ### Test
 ```
 curl http://localhost:8080/api
+```
+
+## 8. AWS deployment using terraform
+### Prerequisites:
+1. Terraform installed
+2. aws cli installed and configured with credentials
+
+```
+cd ./terraform/aws-infra
+terrafrom init
+terraform apply
+```
+
+## Test
+Terraform will print out the public url and testing command
+```
+curl http://<aws-provided-public-ip>/api
 ```
