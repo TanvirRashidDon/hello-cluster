@@ -1,5 +1,5 @@
 resource "aws_vpc" "hello_vpc" { # logical network isolation
-  cidr_block = var.vpc_cidr_block
+  cidr_block = local.vpc_cidr_block
 
   tags = {
     app  = "hello-app"
@@ -21,7 +21,7 @@ resource "aws_route_table" "public" { # allow internet access
   vpc_id = aws_vpc.hello_vpc.id
 
   route {
-    cidr_block = var.ingress_cidr_block
+    cidr_block = local.ingress_cidr_block
     gateway_id = aws_internet_gateway.gateway.id
   }
 
@@ -39,8 +39,8 @@ resource "aws_main_route_table_association" "a" {
 ##- subneting
 resource "aws_subnet" "public_subnet" {
   vpc_id            = aws_vpc.hello_vpc.id
-  cidr_block        = var.public_subnet_cidr_block
-  availability_zone = var.availability_zone
+  cidr_block        = local.public_subnet_cidr_block
+  availability_zone = "${var.region}a"
 
   tags = {
     app  = "hello-app"

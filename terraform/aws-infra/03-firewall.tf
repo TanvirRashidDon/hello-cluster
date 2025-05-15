@@ -6,7 +6,7 @@ resource "aws_default_network_acl" "default" {
     protocol   = -1
     rule_no    = 100
     action     = "allow"
-    cidr_block = var.ingress_cidr_block
+    cidr_block = local.ingress_cidr_block
     from_port  = 0
     to_port    = 0
   }
@@ -15,7 +15,7 @@ resource "aws_default_network_acl" "default" {
     protocol   = -1
     rule_no    = 100
     action     = "allow"
-    cidr_block = var.egress_cidr_block
+    cidr_block = local.egress_cidr_block
     from_port  = 0
     to_port    = 0
   }
@@ -45,7 +45,7 @@ resource "aws_security_group" "allow_http" {
 
 resource "aws_vpc_security_group_ingress_rule" "allow_ingress_http" {
   security_group_id = aws_security_group.allow_http.id
-  cidr_ipv4         = var.ingress_cidr_block
+  cidr_ipv4         = local.ingress_cidr_block
   ip_protocol       = "tcp"
   from_port         = 80
   to_port           = 80
@@ -54,7 +54,7 @@ resource "aws_vpc_security_group_ingress_rule" "allow_ingress_http" {
 # for debugging purpose. will not be part of production
 resource "aws_vpc_security_group_ingress_rule" "allow_ingress_ssh" {
   security_group_id = aws_security_group.allow_http.id
-  cidr_ipv4         = var.ingress_cidr_block
+  cidr_ipv4         = local.ingress_cidr_block
   ip_protocol       = "tcp"
   from_port         = 22
   to_port           = 22
@@ -62,6 +62,6 @@ resource "aws_vpc_security_group_ingress_rule" "allow_ingress_ssh" {
 
 resource "aws_vpc_security_group_egress_rule" "allow_all_egress" {
   security_group_id = aws_security_group.allow_http.id
-  cidr_ipv4         = var.egress_cidr_block
+  cidr_ipv4         = local.egress_cidr_block
   ip_protocol       = "-1"
 }
