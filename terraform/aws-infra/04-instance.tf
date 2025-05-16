@@ -40,6 +40,7 @@ resource "aws_instance" "hello-instance" {
   tags = {
     app  = "hello-app"
     type = "aws_instance"
+    Name = "${terraform.workspace}-hello-app"
   }
 }
 
