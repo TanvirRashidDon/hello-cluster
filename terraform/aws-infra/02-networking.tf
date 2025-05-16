@@ -2,6 +2,7 @@ resource "aws_vpc" "hello_vpc" { # logical network isolation
   cidr_block = local.vpc_cidr_block
 
   tags = {
+    Name = "${terraform.workspace}-hello-app"
     app  = "hello-app"
     type = "aws_vpc"
   }
@@ -12,6 +13,7 @@ resource "aws_internet_gateway" "gateway" { # internet acess capabelity
   vpc_id = aws_vpc.hello_vpc.id
 
   tags = {
+    Name = "${terraform.workspace}-hello-app"
     app  = "hello-app"
     type = "aws_internet_gateway"
   }
@@ -26,6 +28,7 @@ resource "aws_route_table" "public" { # allow internet access
   }
 
   tags = {
+    Name = "${terraform.workspace}-hello-app"
     app  = "hello-app"
     type = "aws_route_table"
   }
@@ -43,6 +46,7 @@ resource "aws_subnet" "public_subnet" {
   availability_zone = "${var.region}a"
 
   tags = {
+    Name = "${terraform.workspace}-hello-app"
     app  = "hello-app"
     type = "aws_subnet"
   }

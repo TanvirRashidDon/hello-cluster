@@ -38,6 +38,7 @@ resource "aws_security_group" "allow_http" {
   vpc_id      = aws_vpc.hello_vpc.id
 
   tags = {
+    Name = "${terraform.workspace}-hello-app"
     app  = "hello-app"
     type = "aws_security_group"
   }
