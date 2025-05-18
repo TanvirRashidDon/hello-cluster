@@ -37,11 +37,10 @@ resource "aws_instance" "hello-instance" {
 
   depends_on = [aws_internet_gateway.gateway]
 
-  tags = {
-    app  = "hello-app"
-    type = "aws_instance"
+  tags = merge(local.tags, {
     Name = "${terraform.workspace}-hello-app"
-  }
+    type = "aws_instance"
+  })
 }
 
 output "application_url" {

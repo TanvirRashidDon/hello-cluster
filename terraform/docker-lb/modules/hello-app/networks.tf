@@ -1,4 +1,4 @@
 resource "docker_network" "app_network" {
-  name   = var.network_name
+  name   = local.network_name
   driver = "bridge"
 }

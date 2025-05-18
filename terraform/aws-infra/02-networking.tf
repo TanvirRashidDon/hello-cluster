@@ -1,22 +1,20 @@
 resource "aws_vpc" "hello_vpc" { # logical network isolation
   cidr_block = local.vpc_cidr_block
 
-  tags = {
+  tags = merge(local.tags, {
     Name = "${terraform.workspace}-hello-app"
-    app  = "hello-app"
     type = "aws_vpc"
-  }
+  })
 }
 
 ##- make vpc available to the internet
 resource "aws_internet_gateway" "gateway" { # internet acess capabelity
   vpc_id = aws_vpc.hello_vpc.id
 
-  tags = {
+  tags = merge(local.tags, {
     Name = "${terraform.workspace}-hello-app"
-    app  = "hello-app"
     type = "aws_internet_gateway"
-  }
+  })
 }
 
 resource "aws_route_table" "public" { # allow internet access
@@ -27,11 +25,10 @@ resource "aws_route_table" "public" { # allow internet access
     gateway_id = aws_internet_gateway.gateway.id
   }
 
-  tags = {
+  tags = merge(local.tags, {
     Name = "${terraform.workspace}-hello-app"
-    app  = "hello-app"
     type = "aws_route_table"
-  }
+  })
 }
 
 resource "aws_main_route_table_association" "a" {
@@ -45,11 +42,10 @@ resource "aws_subnet" "public_subnet" {
   cidr_block        = local.public_subnet_cidr_block
   availability_zone = "${var.region}a"
 
-  tags = {
+  tags = merge(local.tags, {
     Name = "${terraform.workspace}-hello-app"
-    app  = "hello-app"
     type = "aws_subnet"
-  }
+  })
 }
 
 resource "aws_route_table_association" "a" {

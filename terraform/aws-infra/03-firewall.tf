@@ -20,10 +20,9 @@ resource "aws_default_network_acl" "default" {
     to_port    = 0
   }
 
-  tags = {
-    app  = "hello-app"
+  tags = merge(local.tags, {
     type = "aws_default_network_acl"
-  }
+  })
 }
 
 resource "aws_network_acl_association" "a" {
@@ -37,11 +36,10 @@ resource "aws_security_group" "allow_http" {
   description = "Allow http inbound and outbound traffic"
   vpc_id      = aws_vpc.hello_vpc.id
 
-  tags = {
+  tags = merge(local.tags, {
     Name = "${terraform.workspace}-hello-app"
-    app  = "hello-app"
     type = "aws_security_group"
-  }
+  })
 }
 
 resource "aws_vpc_security_group_ingress_rule" "allow_ingress_http" {

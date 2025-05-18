@@ -1,16 +1,10 @@
 data "docker_registry_image" "app" {
-  name = var.app_image
+  name = local.app_image
 }
 
 resource "docker_image" "hello_image" {
   name          = data.docker_registry_image.app.name
   pull_triggers = [data.docker_registry_image.app.sha256_digest]
-}
-
-locals {
-  hello_server_names = [for i in range(1, var.replicas + 1) :
-    "${var.app_server_name}-${i}"
-  ]
 }
 
 resource "docker_container" "hello_server" {
